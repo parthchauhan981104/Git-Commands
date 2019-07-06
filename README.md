@@ -5,6 +5,7 @@ Git Commands
 - [Versão em português](READMEpt.md)
 
 ___
+touch file-name.extension - linux command to create a file of any type of extension
 
 _A list of my commonly used Git commands_
 
@@ -20,15 +21,36 @@ _A list of my commonly used Git commands_
 | `git clone ssh://git@github.com/[username]/[repository-name].git` | Create a local copy of a remote repository |
 
 ### Basic Snapshotting
+When you modify a file in your repository, the change is initially unstaged. In order to commit it, you must stage it(staging area)—that is, add it to the index—using git add.
 
 | Command | Description |
 | ------- | ----------- |
-| `git status` | Check status |
+| `git status` | Check status (shows changes that need to be commited) |
 | `git add [file-name.txt]` | Add a file to the staging area |
 | `git add -A` | Add all new and changed files to the staging area |
 | `git commit -m "[commit message]"` | Commit changes |
+| `git commit |Commit changes, commits all files even non tracked ones.a flag should be put to only commit tracked ones. like -m or -a |
+| `git rm -f [file-name.txt]` | Remove a file (or folder) from staging area but also deletes the file |
+| `git rm --cached [file-name.txt]` | Remove a file (or folder) from staging area only |
 | `git rm -r [file-name.txt]` | Remove a file (or folder) |
 
+# to get commitid and revertid use git log
+git checkout [commit id] - temporarily gets back to the moment of that commit. files temporarily changed to past.
+git checkout master - gets back to last commit that was made
+git revert [commitid] - reverts back the commit. changes stay, revert is also kind of a commit
+git revert [revertid] - reverts the revert as revert is also like a commit
+git reset --soft - moves head back, like a checkout. uncommit changes, changes are left staged (index) as seen by git status. used in case of commit mistakes like spelling error
+git reset --mixed - it is default.  uncommit + unstage changes, changes are left in working tree. git status show the changes as unstaged. need to git add to again make them staged . use example - remove a file that was accidently commited
+git reset --hard-  permanent.  uncommit + unstage + delete changes, nothing left. removes from working directory also. uncommited changes lost forever, commited changes can be brought back by reflog.
+## ignore a file from being tracked by git
+first remove all cached files git rm -r --cached .
+then create a .gitignore file - touch .gitignore 
+add name of files (with extension) to be ignored
+git add .
+git commit
+to test make changes to file and git status, nothing shows up to be commited
+
+### Branching & Merging
 ### Branching & Merging
 
 | Command | Description |
@@ -66,6 +88,7 @@ _A list of my commonly used Git commands_
 | Command | Description |
 | ------- | ----------- |
 | `git log` | View changes |
+git log --oneline - shows in a shorter way
 | `git log --summary` | View changes (detailed) |
 | `git diff [source branch] [target branch]` | Preview changes before merging |
 
